@@ -1,5 +1,5 @@
 # Sym-CTS
-
+##copy and modified form author https://github.com/erihsu/Sym-CTS
 ## Introduction  
 Sym-CTS is my graduate design which aims to design a symmetric clock tree for Near Threshold-Voltage(NTV) or Ultra-low voltage(ULV) Integrated Circuits Design. Circuits working at NTV suffers great variation and the performance of clock tree can be greatly reduced because of timing variation on clock buffers and clock gates. And symmetric clock tree synthesis(CTS) is a effective way to achieve a robost clock tree design under NTV or ULV.  
 
@@ -27,11 +27,7 @@ Warning: The repository is prepared to migrate to Rust version.
 * **Hspice-2016**
 
 ### Flow it
-The given Makefile is only an example of ```usb_phy``` circuits. Before ```make```,make sure ```SYMCTS``` environment variable in the current user. Export ```SYMCTS``` in your shell.
 
-
-```
-export SYMCTS=/path/to/Sym-CTS
 ```
 
 After ```make```, the folder **workspace** will be created. The synthesized result, input circuit, buffer spice file and mosfet parameter card will be copied to the folder for evaluation.  
