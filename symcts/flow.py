@@ -12,6 +12,7 @@ cts = topology()
 cts.loadSinks(division.sinks,division.num_branchs)
 # Step 1: generate symmetric topology
 cts.construct()
+cts.crosslinking()
 print(str(cts.num_branchs))
 # Step 2: buffer sizing with GA
 branch_level = len(cts.num_branchs) 

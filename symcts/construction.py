@@ -174,17 +174,36 @@ class topology():
         # wrap node id from "num_sinks+1"
         for i in range(len(self.nodes)):
             self.nodes[i].set_id(self.num_sinks+i+1)
-
+        #记录当前点个数
+        count = len(self.nodes) + self.num_sinks
         for i,candidate in enumerate(self.candidates):
             for a_candidate in candidate:
-                startpoint = a_candidate.startpoint
-                endpoint   = a_candidate.endpoint
-                # considering non-buffering branch
-                if buffer_type[i] == 0:
-                    self.wires.append(a_candidate.changeToWire())
-                    #self.removeMergePoint(startpoint,endpoint)
+                if a_candidate.cross_link == 0:
+                    startpoint = a_candidate.startpoint
+                    endpoint   = a_candidate.endpoint
+                    # considering non-buffering branch
+                    if buffer_type[i] == 0:
+                        self.wires.append(a_candidate.changeToWire())
+                        #self.removeMergePoint(startpoint,endpoint)
+                    else:
+                        self.buffers.append(clk_buffer(startpoint,endpoint,buffer_type[i]-1))
                 else:
-                    self.buffers.append(clk_buffer(startpoint,endpoint,buffer_type[i]-1))
+                    startpoint = a_candidate.startpoint
+                    endpoint   = a_candidate.crosslinkpoint
+                    # considering non-buffering branch
+                    if buffer_type[i] == 0:
+                        self.wires.append(wire(startpoint,endpoint))
+                        self.wires.append(wire(endpoint,a_candidate.endpoint))
+                        #self.removeMergePoint(startpoint,endpoint)
+                    else:
+                        self.buffers.append(clk_buffer(startpoint,endpoint,buffer_type[i]-1))
+
+    
+    def crosslinking(self):
+        for i,candidate in enumerate(self.candidates):
+            for a_candidate in candidate:
+                a_candidate.cross_link = 1
+        
     
     def removeMergePoint(self,startpoint,endpoint):
         own_end_point = False

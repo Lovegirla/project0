@@ -14,6 +14,7 @@ class clk_buffer():
 		return self.__id
 
 class candidate(clk_buffer):
+	self.cross_link = 0
 
 	def __init__(self,startpoint,endpoint):
 		super().__init__(startpoint,endpoint,buffer_type="none")
